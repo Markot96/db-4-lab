@@ -1,50 +1,30 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    private String nickName;
+    @Column(name = "nickname")
+    private String nickname;
 
-    private Integer avatarId;
-
-    public User(Integer id, String nickName, Integer avatarId) {
+    public User(Integer id, String nickname) {
         this.id = id;
-        this.nickName = nickName;
-        this.avatarId = avatarId;
+        this.nickname = nickname;
     }
 
-    public User(String nickName, Integer avatarId) {
-        this.nickName = nickName;
-        this.avatarId = avatarId;
+    public User(String nickname) {
+        this.nickname = nickname;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(nickName, user.nickName) &&
-                Objects.equals(avatarId, user.avatarId);
+    public User() {
+
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nickName, avatarId);
-    }
-
-
-    @Override
-    public String toString() {
-        return "\nUser{" +
-                "id=" + id +
-                ", nickName='" + nickName + '\'' +
-                ", avatarId=" + avatarId +
-                '}';
-    }
-
 
     public Integer getId() {
         return id;
@@ -54,19 +34,19 @@ public class User {
         this.id = id;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public Integer getAvatarId() {
-        return avatarId;
-    }
-
-    public void setAvatarId(Integer avatarId) {
-        this.avatarId = avatarId;
+    @Override
+    public String toString() {
+        return "\nUser{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }

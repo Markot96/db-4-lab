@@ -1,12 +1,12 @@
 package com.markot.model.dao;
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 public interface AbstractGenericDao<E> {
 
-    List<E> findAll() throws SQLException;
+    Collection<E> findAll() throws SQLException;
 
     E findOne(Integer id) throws SQLException;
 

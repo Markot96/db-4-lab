@@ -12,7 +12,7 @@ public class PasswordController implements AbstractGenericController<Password> {
 
     @Override
     public List<Password> findAll() throws SQLException {
-        return passwordDao.findAll();
+        return (List<Password>) passwordDao.findAll();
     }
 
     @Override

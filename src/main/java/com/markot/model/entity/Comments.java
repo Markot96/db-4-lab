@@ -1,16 +1,25 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "comments")
 public class Comments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "author")
     private String author;
 
+    @Column(name = "text")
     private String text;
 
+    @Column(name = "amount_of_likes")
     private Integer amountOfLikes;
 
+    @Column(name = "writing_time")
     private String writingTime;
 
     public Comments(Integer id, String author, String text, Integer amountOfLikes, String writingTime) {
@@ -28,32 +37,8 @@ public class Comments {
         this.writingTime = writingTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comments comments = (Comments) o;
-        return Objects.equals(id, comments.id) &&
-                Objects.equals(author, comments.author) &&
-                Objects.equals(text, comments.text) &&
-                Objects.equals(amountOfLikes, comments.amountOfLikes) &&
-                Objects.equals(writingTime, comments.writingTime);
-    }
+    public Comments() {
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, author, text, amountOfLikes, writingTime);
-    }
-
-    @Override
-    public String toString() {
-        return "\nComments{" +
-                "id=" + id +
-                ", author='" + author + '\'' +
-                ", text='" + text + '\'' +
-                ", amountOfLikes=" + amountOfLikes +
-                ", writingTime=" + writingTime +
-                '}';
     }
 
     public Integer getId() {
@@ -94,5 +79,16 @@ public class Comments {
 
     public void setWritingTime(String writingTime) {
         this.writingTime = writingTime;
+    }
+
+    @Override
+    public String toString() {
+        return "\nComments{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", text='" + text + '\'' +
+                ", amountOfLikes=" + amountOfLikes +
+                ", writingTime='" + writingTime + '\'' +
+                '}';
     }
 }
