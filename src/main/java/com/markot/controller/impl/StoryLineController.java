@@ -13,12 +13,12 @@ public class StoryLineController implements AbstractGenericController<StoryLine>
 
     @Override
     public List<StoryLine> findAll() throws SQLException {
-        return storyLineDao.findAll();
+        return (List<StoryLine>) storyLineDao.findAll();
     }
 
     @Override
-    public StoryLine findOne(Integer user_id) throws SQLException {
-        return storyLineDao.findOne(user_id);
+    public StoryLine findOne(Integer userId) throws SQLException {
+        return storyLineDao.findOne(userId);
     }
 
     @Override
@@ -27,20 +27,20 @@ public class StoryLineController implements AbstractGenericController<StoryLine>
     }
 
     @Override
-    public void update(Integer user_id, StoryLine storyLine) throws SQLException {
-        if (storyLineDao.findOne(user_id) == null){
+    public void update(Integer userId, StoryLine storyLine) throws SQLException {
+        if (storyLineDao.findOne(userId) == null){
             System.out.println("StoryLine does not exist");
         } else {
-            storyLineDao.update(user_id, storyLine);
+            storyLineDao.update(userId, storyLine);
         }
     }
 
     @Override
-    public void delete(Integer user_id) throws SQLException {
-        if (storyLineDao.findOne(user_id) == null){
+    public void delete(Integer userId) throws SQLException {
+        if (storyLineDao.findOne(userId) == null){
             System.out.println("StoryLine does not exist");
         } else {
-            storyLineDao.delete(user_id);
+            storyLineDao.delete(userId);
         }
     }
 }

@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class View {
     private static final Scanner SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
-    private final AdressController adressController = new AdressController();
-    private final AvatarController avatarController = new AvatarController();
     private final CommentsController commentsController = new CommentsController();
     private final PasswordController passwordController = new PasswordController();
     private final ReactionsController reactionsController = new ReactionsController();
@@ -24,53 +22,41 @@ public class View {
 
 
     public View() {
-        menu.put("11", this::getAllAdress);
-        menu.put("12", this::getAdressById);
-        menu.put("13", this::createAdress);
-        menu.put("14", this::updateAdress);
-        menu.put("15", this::deleteAdress);
+        menu.put("11", this::getAllComments);
+        menu.put("12", this::getCommentsById);
+        menu.put("13", this::createComments);
+        menu.put("14", this::updateComments);
+        menu.put("15", this::deleteComments);
 
-        menu.put("21", this::getAllAvatar);
-        menu.put("22", this::getAvatarById);
-        menu.put("23", this::createAvatar);
-        menu.put("24", this::updateAvatar);
-        menu.put("25", this::deleteAvatar);
+        menu.put("21", this::getAllPassword);
+        menu.put("22", this::getPasswordById);
+        menu.put("23", this::createPassword);
+        menu.put("24", this::updatePassword);
+        menu.put("25", this::deletePassword);
 
-        menu.put("31", this::getAllComments);
-        menu.put("32", this::getCommentsById);
-        menu.put("33", this::createComments);
-        menu.put("34", this::updateComments);
-        menu.put("35", this::deleteComments);
+        menu.put("31", this::getAllReactions);
+        menu.put("32", this::getReactionsById);
+        menu.put("33", this::createReactions);
+        menu.put("34", this::updateReactions);
+        menu.put("35", this::deleteReactions);
 
-        menu.put("41", this::getAllPassword);
-        menu.put("42", this::getPasswordById);
-        menu.put("43", this::createPassword);
-        menu.put("44", this::updatePassword);
-        menu.put("45", this::deletePassword);
+        menu.put("41", this::getAllStory);
+        menu.put("42", this::getStoryById);
+        menu.put("43", this::createStory);
+        menu.put("44", this::updateStory);
+        menu.put("45", this::deleteStory);
 
-        menu.put("51", this::getAllReactions);
-        menu.put("52", this::getReactionsById);
-        menu.put("53", this::createReactions);
-        menu.put("54", this::updateReactions);
-        menu.put("55", this::deleteReactions);
+        menu.put("51", this::getAllStoryLine);
+        menu.put("52", this::getStoryLineById);
+        menu.put("53", this::createStoryLine);
+        menu.put("54", this::updateStoryLine);
+        menu.put("55", this::deleteStoryLine);
 
-        menu.put("61", this::getAllStory);
-        menu.put("62", this::getStoryById);
-        menu.put("63", this::createStory);
-        menu.put("64", this::updateStory);
-        menu.put("65", this::deleteStory);
-
-        menu.put("71", this::getAllStoryLine);
-        menu.put("72", this::getStoryLineById);
-        menu.put("73", this::createStoryLine);
-        menu.put("74", this::updateStoryLine);
-        menu.put("75", this::deleteStoryLine);
-
-        menu.put("81", this::getAllUser);
-        menu.put("82", this::getUserById);
-        menu.put("83", this::createUser);
-        menu.put("84", this::updateUser);
-        menu.put("85", this::deleteUser);
+        menu.put("61", this::getAllUser);
+        menu.put("62", this::getUserById);
+        menu.put("63", this::createUser);
+        menu.put("64", this::updateUser);
+        menu.put("65", this::deleteUser);
     }
 
     public void displayMenu() {
@@ -78,17 +64,15 @@ public class View {
         System.out.println("                 Enter XY to choose the option, where:");
         System.out.println("=======================================================================");
         System.out.println("X - entity number:                 |       Y - CRUD number:");
-        System.out.println("  1 - adress                       |         1 - GET ALL");
-        System.out.println("  2 - avatar                       |         2 - GET ONE");
-        System.out.println("  3 - comments                     |         3 - CREATE");
-        System.out.println("  4 - password                     |         4 - UPDATE");
-        System.out.println("  5 - reactions                    |         5 - DELETE");
-        System.out.println("  6 - story");
-        System.out.println("  7 - story line");
-        System.out.println("  8 - user");
-        System.out.println("E.G. adresses (X=1) - get all (Y=1): 11");
-        System.out.println("     comments (X=3) - update (Y=4): 34");
-        System.out.println("     password (X=4) - get one (Y=2): 42");
+        System.out.println("  1 - comments                     |         1 - GET ALL");
+        System.out.println("  2 - password                     |         2 - GET ONE");
+        System.out.println("  3 - reactions                    |         3 - CREATE");
+        System.out.println("  4 - story                        |         4 - UPDATE");
+        System.out.println("  5 - story line                   |         5 - DELETE");
+        System.out.println("  6 - user");
+        System.out.println("E.G. reactions (X=3) - get all (Y=1): 31");
+        System.out.println("     comments (X=1) - update (Y=4): 14");
+        System.out.println("     password (X=2) - get one (Y=2): 22");
         System.out.println("=======================================================================");
     }
 
@@ -105,95 +89,6 @@ public class View {
         } while (SCANNER.hasNext());
     }
 
-//adresses
-    private void getAllAdress() throws SQLException {
-        System.out.println("\n[ADRESS / GET]");
-        System.out.println(adressController.findAll() + "\n");
-    }
-
-    private void getAdressById() throws SQLException {
-        System.out.println("\n[ADRESS / GET] Enter ID: ");
-        Integer id = SCANNER.nextInt();
-        System.out.println(adressController.findOne(id) + "\n");
-    }
-
-    private Adress getAdressInputs() {
-        System.out.println("\nEnter color: ");
-        String color = SCANNER.next();
-
-        return new Adress(color);
-    }
-
-    private void createAdress() throws SQLException {
-        System.out.println("\n[ADRESS / CREATE]");
-        Adress adress = getAdressInputs();
-        adressController.create(adress);
-        System.out.println("ADRESS created.\n");
-    }
-
-    private void updateAdress() throws SQLException {
-        System.out.println("\n[ADRESS / UPDATE] Enter ID: ");
-        Integer id = SCANNER.nextInt();
-        Adress adress = getAdressInputs();
-        adress.setId(id);
-
-        adressController.update(adress.getId(), adress);
-        System.out.println("ADRESS with ID=" + id + " successfully updated\n");
-    }
-
-    private void deleteAdress() throws SQLException {
-        System.out.println("\n[ADRESS / DELETE] Enter ID: ");
-        int id = SCANNER.nextInt();
-
-        adressController.delete(id);
-        System.out.println("ADRESS with ID=" + id + " successfully deleted\n");
-    }
-
-//  avatars
-    private void getAllAvatar() throws SQLException {
-        System.out.println("\n[AVATAR / GET]");
-        System.out.println(avatarController.findAll() + "\n");
-    }
-
-    private void getAvatarById() throws SQLException {
-        System.out.println("\n[AVATAR / GET] Enter ID: ");
-        Integer id = SCANNER.nextInt();
-        System.out.println(avatarController.findOne(id) + "\n");
-    }
-
-    private Avatar getAvatarInputs() {
-        System.out.println("\nEnter file name: ");
-        String file_name = SCANNER.next();
-        System.out.println("\nEnter file size in mb: ");
-        Float file_size_in_mb = SCANNER.nextFloat();
-
-        return new Avatar(file_name, file_size_in_mb);
-    }
-
-    private void createAvatar() throws SQLException {
-        System.out.println("\n[AVATAR / CREATE]");
-        Avatar avatar = getAvatarInputs();
-        avatarController.create(avatar);
-        System.out.println("AVATAR created.\n");
-    }
-
-    private void updateAvatar() throws SQLException {
-        System.out.println("\n[AVATAR / UPDATE] Enter ID: ");
-        Integer id = SCANNER.nextInt();
-        Avatar avatar = getAvatarInputs();
-        avatar.setId(id);
-
-        avatarController.update(avatar.getId(), avatar);
-        System.out.println("AVATAR with ID=" + id + " successfully updated\n");
-    }
-
-    private void deleteAvatar() throws SQLException {
-        System.out.println("\n[AVATAR / DELETE] Enter ID: ");
-        int id = SCANNER.nextInt();
-
-        avatarController.delete(id);
-        System.out.println("AVATAR with ID=" + id + " successfully deleted\n");
-    }
 
 //  comments
     private void getAllComments() throws SQLException {
@@ -365,11 +260,9 @@ public class View {
         Integer duration_in_seconds = SCANNER.nextInt();
         System.out.println("\nEnter story line user id: ");
         Integer story_line_user_id = SCANNER.nextInt();
-        System.out.println("\nEnter adress id: ");
-        Integer adress_id = SCANNER.nextInt();
 
         return new Story(isPicture, file_name, upload_time, file_size_in_mb, duration_in_seconds,
-                story_line_user_id, adress_id);
+                story_line_user_id);
     }
 
     private void createStory() throws SQLException {
@@ -434,9 +327,9 @@ public class View {
         System.out.println("\n[STORYLINE / UPDATE] Enter ID: ");
         Integer id = SCANNER.nextInt();
         StoryLine storyLine = getStoryLineInputs();
-        storyLine.setUserId(id);
+        storyLine.setId(id);
 
-        storyLineController.update(storyLine.getUserId(), storyLine);
+        storyLineController.update(storyLine.getId(), storyLine);
         System.out.println("STORYLINE with ID=" + id + " successfully updated\n");
     }
 
@@ -463,10 +356,7 @@ public class View {
     private User getUserInputs() {
         System.out.println("\nEnter nickname: ");
         String nickname = SCANNER.next();
-        System.out.println("\nEnter avatar id: ");
-        Integer avatar_id = SCANNER.nextInt();
-
-        return new User(nickname, avatar_id);
+        return new User(nickname);
     }
 
     private void createUser() throws SQLException {
@@ -493,11 +383,4 @@ public class View {
         userController.delete(id);
         System.out.println("USER with ID=" + id + " successfully deleted\n");
     }
-
-
-
-
-
-
-
 }

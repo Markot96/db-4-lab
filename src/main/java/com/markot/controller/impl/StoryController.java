@@ -13,7 +13,7 @@ public class StoryController implements AbstractGenericController<Story> {
 
     @Override
     public List<Story> findAll() throws SQLException {
-        return storyDao.findAll();
+        return (List<Story>) storyDao.findAll();
     }
 
     @Override

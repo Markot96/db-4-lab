@@ -13,7 +13,7 @@ public class UserController implements AbstractGenericController<User> {
 
     @Override
     public List<User> findAll() throws SQLException {
-        return userDao.findAll();
+        return (List<User>) userDao.findAll();
     }
 
     @Override

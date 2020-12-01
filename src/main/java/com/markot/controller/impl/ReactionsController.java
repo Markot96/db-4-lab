@@ -12,7 +12,7 @@ public class ReactionsController implements AbstractGenericController<Reactions>
 
     @Override
     public List<Reactions> findAll() throws SQLException {
-        return reactionsDao.findAll();
+        return (List<Reactions>) reactionsDao.findAll();
     }
 
     @Override

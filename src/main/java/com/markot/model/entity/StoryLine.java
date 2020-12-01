@@ -1,57 +1,52 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.Set;
 
+@Entity
+@Table(name = "story_line")
 public class StoryLine {
-    private Integer userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Integer id;
 
+    @Column(name = "story_author")
     private String storyAuthor;
 
+    @Column(name = "watched_status")
     private Integer watchedStatus;
 
-    public StoryLine(Integer userId, String storyAuthor, Integer watchedStatus) {
-        this.userId = userId;
+    @OneToMany(mappedBy = "storyLine", fetch = FetchType.EAGER)
+    private Set<Story> story;
+
+    public StoryLine(Integer id, String storyAuthor, Integer watchedStatus, Set<Story> story) {
+        this.id = id;
         this.storyAuthor = storyAuthor;
         this.watchedStatus = watchedStatus;
+        this.story = story;
     }
 
-    public StoryLine(String storyAuthor, Integer watchedStatus) {
+    public StoryLine(String storyAuthor, Integer watchedStatus, Set<Story> story) {
         this.storyAuthor = storyAuthor;
         this.watchedStatus = watchedStatus;
+        this.story = story;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StoryLine storyLine = (StoryLine) o;
-        return Objects.equals(userId, storyLine.userId) &&
-                Objects.equals(storyAuthor, storyLine.storyAuthor) &&
-                Objects.equals(watchedStatus, storyLine.watchedStatus);
+    public StoryLine() {
+
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, storyAuthor, watchedStatus);
+    public StoryLine(Integer id, String story_author, int isWatched) {
     }
 
-    @Override
-    public String toString() {
-        return "\nStoryLine{" +
-                "userId=" + userId +
-                ", storyAuthor='" + storyAuthor + '\'' +
-                ", watchedStatus=" + watchedStatus +
-                '}';
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     public String getStoryAuthor() {
         return storyAuthor;
     }
@@ -66,5 +61,23 @@ public class StoryLine {
 
     public void setWatchedStatus(Integer watchedStatus) {
         this.watchedStatus = watchedStatus;
+    }
+
+    public Set<Story> getStory() {
+        return story;
+    }
+
+    public void setStory(Set<Story> story) {
+        this.story = story;
+    }
+
+    @Override
+    public String toString() {
+        return "\nStoryLine{" +
+                "id=" + id +
+                ", storyAuthor='" + storyAuthor + '\'' +
+                ", watchedStatus=" + watchedStatus +
+                ", story=" + story +
+                '}';
     }
 }

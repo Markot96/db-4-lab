@@ -1,13 +1,19 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "password")
 public class Password {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "user_id")
     private Integer userId;
 
     public Password(Integer id, String password, Integer userId) {
@@ -21,28 +27,8 @@ public class Password {
         this.userId = userId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Password password1 = (Password) o;
-        return Objects.equals(id, password1.id) &&
-                Objects.equals(password, password1.password) &&
-                Objects.equals(userId, password1.userId);
-    }
+    public Password() {
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, password, userId);
-    }
-
-    @Override
-    public String toString() {
-        return "\nPassword{" +
-                "id=" + id +
-                ", password='" + password + '\'' +
-                ", userId=" + userId +
-                '}';
     }
 
     public Integer getId() {
@@ -67,5 +53,14 @@ public class Password {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "\nPassword{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
     }
 }

@@ -10,10 +10,9 @@ import java.util.List;
 public class CommentsController implements AbstractGenericController<Comments> {
     private final CommentsDao commentsDao = new CommentsDao();
 
-
     @Override
     public List<Comments> findAll() throws SQLException {
-        return commentsDao.findAll();
+        return (List<Comments>) commentsDao.findAll();
     }
 
     @Override

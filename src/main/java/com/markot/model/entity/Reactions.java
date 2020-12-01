@@ -1,12 +1,19 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "reactions")
 public class Reactions {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "amount_of_views")
     private Integer amountOfViews;
 
+    @Column(name = "amount_of_emojis")
     private Integer amountOfEmojis;
 
     public Reactions(Integer id, Integer amountOfViews, Integer amountOfEmojis) {
@@ -20,19 +27,8 @@ public class Reactions {
         this.amountOfEmojis = amountOfEmojis;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Reactions reactions = (Reactions) o;
-        return Objects.equals(id, reactions.id) &&
-                Objects.equals(amountOfViews, reactions.amountOfViews) &&
-                Objects.equals(amountOfEmojis, reactions.amountOfEmojis);
-    }
+    public Reactions() {
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, amountOfViews, amountOfEmojis);
     }
 
     @Override
@@ -41,7 +37,7 @@ public class Reactions {
                 "id=" + id +
                 ", amountOfViews=" + amountOfViews +
                 ", amountOfEmojis=" + amountOfEmojis +
-                '}';
+                "}";
     }
 
     public Integer getId() {

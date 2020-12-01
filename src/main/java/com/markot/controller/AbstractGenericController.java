@@ -16,5 +16,3 @@ public interface AbstractGenericController<E> {
     void delete(Integer id) throws SQLException;
 
 }
-
-

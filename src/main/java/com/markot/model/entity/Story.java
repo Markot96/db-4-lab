@@ -1,80 +1,65 @@
 package com.markot.model.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+
+@Table(name = "story")
+@Entity
 public class Story {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "type_of_story")
     private Integer typeOfStory;
 
+    @Column(name = "file_name")
     private String fileName;
 
+    @Column(name = "upload_time")
     private String uploadTime;
 
+    @Column(name = "file_size_in_mb")
     private Float fileSizeInMb;
 
+    @Column(name = "duration_in_seconds")
     private Integer durationInSeconds;
 
-    private Integer storyLineUserId;
+    @Column(name = "comments_id")
+    private Integer commentsId;
 
-    private Integer adressId;
+    @Column(name = "reactions_id")
+    private Integer reactionsId;
 
-    public Story(Integer typeOfStory, String fileName, String uploadTime, Float fileSizeInMb, Integer durationInSeconds,
-                 Integer storyLineUserId, Integer adressId) {
-        this.typeOfStory = typeOfStory;
-        this.fileName = fileName;
-        this.uploadTime = uploadTime;
-        this.fileSizeInMb = fileSizeInMb;
-        this.durationInSeconds = durationInSeconds;
-        this.storyLineUserId = storyLineUserId;
-        this.adressId = adressId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "story_line_user_id", referencedColumnName = "user_id", nullable = false)
+    private StoryLine storyLine;
 
-    public Story(Integer id, Integer typeOfStory, String fileName, String uploadTime, Float fileSizeInMb,
-                 Integer durationInSeconds, Integer storyLineUserId, Integer adressId) {
+    public Story(Integer id, Integer typeOfStory, String fileName, String uploadTime, Float fileSizeInMb, Integer durationInSeconds, StoryLine storyLine) {
         this.id = id;
         this.typeOfStory = typeOfStory;
         this.fileName = fileName;
         this.uploadTime = uploadTime;
         this.fileSizeInMb = fileSizeInMb;
         this.durationInSeconds = durationInSeconds;
-        this.storyLineUserId = storyLineUserId;
-        this.adressId = adressId;
+        this.storyLine = storyLine;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Story story = (Story) o;
-        return Objects.equals(id, story.id) &&
-                Objects.equals(typeOfStory, story.typeOfStory) &&
-                Objects.equals(fileName, story.fileName) &&
-                Objects.equals(uploadTime, story.uploadTime) &&
-                Objects.equals(fileSizeInMb, story.fileSizeInMb) &&
-                Objects.equals(durationInSeconds, story.durationInSeconds) &&
-                Objects.equals(storyLineUserId, story.storyLineUserId) &&
-                Objects.equals(adressId, story.adressId);
+    public Story(Integer typeOfStory, String fileName, String uploadTime, Float fileSizeInMb, Integer durationInSeconds, StoryLine storyLine) {
+        this.typeOfStory = typeOfStory;
+        this.fileName = fileName;
+        this.uploadTime = uploadTime;
+        this.fileSizeInMb = fileSizeInMb;
+        this.durationInSeconds = durationInSeconds;
+        this.storyLine = storyLine;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, typeOfStory, fileName, uploadTime, fileSizeInMb, durationInSeconds, storyLineUserId, adressId);
+    public Story() {
+
     }
 
-    @Override
-    public String toString() {
-        return "\nStory{" +
-                "id=" + id +
-                ", typeOfStory=" + typeOfStory +
-                ", fileName='" + fileName + '\'' +
-                ", uploadTime='" + uploadTime + '\'' +
-                ", fileSizeInMb=" + fileSizeInMb +
-                ", durationInSeconds=" + durationInSeconds +
-                ", storyLineUserId=" + storyLineUserId +
-                ", adressId=" + adressId +
-                '}';
+    public Story(int isPicture, String file_name, String upload_time, Float file_size_in_mb, Integer duration_in_seconds, Integer story_line_user_id) {
     }
 
     public Integer getId() {
@@ -125,19 +110,24 @@ public class Story {
         this.durationInSeconds = durationInSeconds;
     }
 
-    public Integer getStoryLineUserId() {
-        return storyLineUserId;
+    public StoryLine getStoryLine() {
+        return storyLine;
     }
 
-    public void setStoryLineUserId(Integer storyLineUserId) {
-        this.storyLineUserId = storyLineUserId;
+    public void setStoryLine(StoryLine storyLine) {
+        this.storyLine = storyLine;
     }
 
-    public Integer getAdressId() {
-        return adressId;
-    }
-
-    public void setAdressId(Integer adressId) {
-        this.adressId = adressId;
+    @Override
+    public String toString() {
+        return "\nStory{" +
+                "id=" + id +
+                ", typeOfStory=" + typeOfStory +
+                ", fileName='" + fileName + '\'' +
+                ", uploadTime='" + uploadTime + '\'' +
+                ", fileSizeInMb=" + fileSizeInMb +
+                ", durationInSeconds=" + durationInSeconds +
+                ", storyLine=" + storyLine +
+                '}';
     }
 }
